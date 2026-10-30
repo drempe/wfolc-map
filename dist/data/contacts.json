@@ -1,0 +1,52 @@
+{
+  "directory": {
+    "Daniella Rempe": {
+      "name": "Daniella Rempe",
+      "email": "rempe@jsg.utexas.edu",
+      "source": "https://www.jsg.utexas.edu/researcher/daniella_rempe/"
+    },
+    "Marcus Gary": {
+      "name": "Marcus Gary",
+      "email": "mog@jsg.utexas.edu",
+      "source": "https://www.jsg.utexas.edu/people/"
+    },
+    "Michael Young": {
+      "name": "Michael Young",
+      "email": "michael.young@beg.utexas.edu",
+      "source": "https://www.jsg.utexas.edu/researcher/michael_young/"
+    },
+    "Ashley Matheny": {
+      "name": "Ashley Matheny",
+      "email": "ashley.matheny@jsg.utexas.edu",
+      "source": "https://www.jsg.utexas.edu/matheny/people/"
+    },
+    "Tim Keitt": {
+      "name": "Tim Keitt",
+      "email": "tkeitt@utexas.edu",
+      "source": "https://bridgingbarriers.utexas.edu/es/node/925"
+    }
+  },
+  "assignments": {
+    "PROPERTY_FEATURES_0022": "Marcus Gary",
+    "PROPERTY_FEATURES_0016": "Marcus Gary",
+    "R07": "Marcus Gary",
+    "R05": "Daniella Rempe",
+    "R01": "Michael Young",
+    "R02": "Michael Young",
+    "R03": "Michael Young",
+    "R06": "Ashley Matheny",
+    "R10": "Ashley Matheny",
+    "R11": "Ashley Matheny",
+    "R12": "Ashley Matheny",
+    "R13": "Ashley Matheny",
+    "R09": "Tim Keitt"
+  },
+  "layerContacts": {
+    "np_wells": "Daniella Rempe",
+    "vms_borehole_heads": "Daniella Rempe",
+    "vms_sleeves": "Daniella Rempe",
+    "vms_ftdt_sensors": "Daniella Rempe",
+    "vms_vsp_samplers": "Daniella Rempe",
+    "vms_fracture_samplers": "Daniella Rempe"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "request": {
+    "f": "json",
+    "bbox": "-98.165,30.112,-98.075,30.164",
+    "bboxSR": 4326,
+    "imageSR": 3857,
+    "size": "4000,2660",
+    "format": "jpg",
+    "bandIds": "0,1,2",
+    "interpolation": "RSP_BilinearInterpolation",
+    "adjustAspectRatio": "false",
+    "mosaicRule": "{\"mosaicMethod\": \"esriMosaicLockRaster\", \"lockRasterIds\": [182234, 182239, 182264, 182269], \"mosaicOperation\": \"MT_FIRST\"}"
+  },
+  "response": {
+    "href": "https://imagery.nationalmap.gov/arcgis/rest/directories/imagery_output/USGSNAIPPlus_ImageServer/_ags_96447b59_fcca_435e_93ab_23334f04092f.jpg",
+    "width": 4000,
+    "height": 2660,
+    "extent": {
+      "xmin": -98.165,
+      "ymin": 30.112,
+      "xmax": -98.075,
+      "ymax": 30.164,
+      "spatialReference": {
+        "wkid": 4326,
+        "latestWkid": 4326
+      }
+    },
+    "scale": 0
+  }
+}
