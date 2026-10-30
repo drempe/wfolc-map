@@ -43,9 +43,9 @@
   function closeEquipment(){
    $('equipment-panel').hidden=true;document.body.classList.remove('equipment-open');
    const old=state.selected && markers.get(state.selected.properties.id);if(old?.getElement())old.getElement().classList.remove('selected');
-   state.selected=null;selectionGroup.clearLayers();history.replaceState(null,'',location.pathname+location.search);
+   state.selected=null;selectionGroup.clearLayers();history.replaceState(null,'',location.pathname+location.search);updateFeatureLabels();
   }
-  function closeLayers(){$('layers-panel').hidden=true;$('layers-button').setAttribute('aria-expanded','false');}
+  function closeLayers(){$('layers-panel').hidden=true;$('layers-button').setAttribute('aria-expanded','false');updateFeatureLabels();}
   function updateLayers(){
    clusters.clearLayers();
    allFeatures.filter(f=>f.geometry.type==='Point' && category(f)!=='facilities' && state.layers[category(f)]).forEach(f=>clusters.addLayer(markers.get(f.properties.id)));
@@ -84,7 +84,7 @@
    markers.get(p.id)?.getElement()?.classList.add('selected');
    history.replaceState(null,'',`#asset=${encodeURIComponent(p.id)}`);
    announce(`${p.name}.${isSiteFeature?'':p.contact?' Contact: '+p.contact:' Contact not yet listed.'}`);
-   if(focus)zoomEquipment(f);
+   if(focus)zoomEquipment(f);else updateFeatureLabels();
   }
   function zoomEquipment(f){
    if(!f)return;
@@ -160,7 +160,7 @@
   document.querySelectorAll('[data-basemap]').forEach(button=>button.addEventListener('click',()=>{
    state.basemap=button.dataset.basemap;document.body.classList.toggle('terrain-map',state.basemap==='terrain');document.querySelectorAll('[data-basemap]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));showImages();
   }));
-  $('layers-button').addEventListener('click',()=>{const open=$('layers-panel').hidden;$('layers-panel').hidden=!open;$('layers-button').setAttribute('aria-expanded',String(open));if(open){$('equipment-panel').hidden=true;document.body.classList.remove('equipment-open');}});
+  $('layers-button').addEventListener('click',()=>{const open=$('layers-panel').hidden;$('layers-panel').hidden=!open;$('layers-button').setAttribute('aria-expanded',String(open));if(open){$('equipment-panel').hidden=true;document.body.classList.remove('equipment-open');}updateFeatureLabels();});
   $('close-layers').addEventListener('click',closeLayers);
   document.querySelectorAll('[data-layer]').forEach(input=>input.addEventListener('change',()=>{state.layers[input.dataset.layer]=input.checked;updateLayers();}));
   $('close-equipment').addEventListener('click',closeEquipment);
