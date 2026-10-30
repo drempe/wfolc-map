@@ -117,7 +117,7 @@
    }
    const controls=document.querySelector('.explore-controls').getBoundingClientRect();
    occupied.push([controls.left-mapRect.left-8,controls.top-mapRect.top-8,controls.right-mapRect.left+8,controls.bottom-mapRect.top+8]);
-   const canvas=document.createElement('canvas'), ctx=canvas.getContext('2d');ctx.font='18px "Times New Roman",Times,serif';
+   const canvas=document.createElement('canvas'), ctx=canvas.getContext('2d');ctx.font='18px Arial,Helvetica,sans-serif';
    const priority=f=>f.properties.name==='Lake Dianne'?0:/^(Main Gate|WFOLC Temporary Office)$/.test(f.properties.name)?1:2;
    const features=allFeatures.filter(f=>category(f)==='facilities').sort((a,b)=>priority(a)-priority(b));
    for(const f of features){

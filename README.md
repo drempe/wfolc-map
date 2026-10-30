@@ -43,7 +43,7 @@ All 14 NP well records are retained, including WP-01 and WP-14 at the same sourc
 
 The website publishes only the map fields used by the interface. Original source descriptions, gate codes, instrument serials, costs, and administrative documents are not included.
 
-Times New Roman is the preferred interface font, with system serif fallbacks. The page is responsive, supports keyboard navigation, and respects reduced-motion preferences.
+Arial is the interface and map label font, with Helvetica and system sans-serif fallbacks. The page is responsive, supports keyboard navigation, and respects reduced-motion preferences.
 
 ## Branding and site features
 
