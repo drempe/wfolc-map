@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#233e34">
+<meta name="theme-color" content="#bf5700">
 <meta name="description" content="Explore research installations, wells, and field infrastructure at the White Family Outdoor Learning Center.">
 <title>WFOLC | Interactive Site Map</title>
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/jackson-school.png" type="image/png">
 <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
 <link rel="stylesheet" href="vendor/leaflet/MarkerCluster.css">
 <link rel="stylesheet" href="styles.css">
@@ -16,7 +16,7 @@
 </head>
 <body>
 <header class="topbar">
- <a class="identity" href="./" aria-label="White Family Outdoor Learning Center, whole site"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M3 25 12 8l5 9 4-6 8 14H3Z"/><path d="m9 25 8-8m-5-9 2 10"/></svg><h1>White Family Outdoor Learning Center</h1></a>
+ <a class="identity" href="./" aria-label="White Family Outdoor Learning Center, whole site"><img class="school-logo" src="assets/jackson-school.png" alt="The University of Texas at Austin, Jackson School of Geosciences"><h1>White Family Outdoor Learning Center</h1></a>
  <nav aria-label="Map controls">
   <div class="basemap-switch" role="group" aria-label="Map background"><button type="button" data-basemap="aerial" aria-pressed="true">Aerial</button><button type="button" data-basemap="terrain" aria-pressed="false">Terrain</button></div>
   <button type="button" id="layers-button" class="button" aria-expanded="false" aria-controls="layers-panel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 7 9-4 9 4-9 4-9-4Zm0 5 9 4 9-4M3 17l9 4 9-4"/></svg>Layers</button>
@@ -26,31 +26,31 @@
  <div id="map" aria-label="Interactive WFOLC site map"></div>
  <div class="explore-controls">
   <div class="search-wrap">
-   <label class="search-box" for="equipment-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="equipment-search" type="search" placeholder="Find equipment or a contact" aria-label="Find equipment or a contact" aria-controls="search-results" autocomplete="off"><button type="button" class="clear-search" id="clear-search" aria-label="Clear search" hidden>×</button></label>
+   <label class="search-box" for="equipment-search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="equipment-search" type="search" placeholder="Find equipment, a place or contact" aria-label="Find equipment, a place or contact" aria-controls="search-results" autocomplete="off"><button type="button" class="clear-search" id="clear-search" aria-label="Clear search" hidden>×</button></label>
    <div id="search-results" class="search-results card" hidden></div>
   </div>
   <label class="view-select"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 5 6-2 6 2 6-2v16l-6 2-6-2-6 2V5Zm6-2v16m6-14v16"/></svg><select id="view-select" aria-label="Go to map area"><option value="site">Whole site</option><option value="entrance">North entrance</option><option value="research">Southern research</option><option value="wells">NP wells</option><option value="vms">VMS</option></select></label>
  </div>
  <section id="layers-panel" class="card layers-panel" aria-label="Map layers" hidden>
   <div class="panel-heading"><h2>Map layers</h2><button class="icon-button" id="close-layers" type="button" aria-label="Close map layers">×</button></div>
-  <label><input type="checkbox" data-layer="research" checked><span class="key research"></span>Research installations</label>
+  <label><input type="checkbox" data-layer="research" checked><span class="key research"></span>Active research infrastructure</label>
+  <label><input type="checkbox" data-layer="proposed" checked><span class="key proposed"></span>Proposed research infrastructure</label>
   <label><input type="checkbox" data-layer="wells" checked><span class="key well"></span>Wells</label>
   <label><input type="checkbox" data-layer="vms" checked><span class="key bore"></span>VMS boreholes</label>
   <label><input type="checkbox" data-layer="sensors"><span class="key sensor"></span>VMS sensors</label>
-  <label><input type="checkbox" data-layer="facilities"><span class="key facility"></span>Facilities & landmarks</label>
+  <label><input type="checkbox" data-layer="facilities" checked><span class="key facility"></span>Labeled site features</label>
   <label><input type="checkbox" data-layer="contours" checked><span class="key contour"></span>1 m contours / 5 m index</label>
   <label><input type="checkbox" data-layer="access" checked><span class="key road"></span>Roads, trails & creek</label>
-  <div class="source-key">Imagery: NAIP · Google<br>Terrain: USGS 3DEP</div>
  </section>
  <aside id="equipment-panel" class="card equipment-panel" aria-labelledby="equipment-title" hidden>
   <div class="panel-heading"><span id="equipment-ref" class="asset-badge"></span><button class="icon-button" type="button" id="close-equipment" aria-label="Close equipment details">×</button></div>
   <h2 id="equipment-title"></h2>
   <span class="status-tag" id="equipment-status" hidden></span>
-  <div class="contact-section"><p id="contact-role" class="field-label">Contact / project lead</p><p id="contact-name" class="contact-name"></p><a id="contact-email" class="contact-email"></a></div>
+  <div class="contact-section" id="contact-section"><p id="contact-role" class="field-label">Contact / project lead</p><p id="contact-name" class="contact-name"></p><a id="contact-email" class="contact-email"></a></div>
   <dl id="equipment-specs" hidden></dl>
   <div class="equipment-actions"><button type="button" id="zoom-equipment" class="button">Zoom to equipment</button><button type="button" id="copy-link" class="icon-button" aria-label="Copy link to this equipment" title="Copy equipment link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 13 4-4m-6 6-2 2a4 4 0 0 1-6-6l5-5a4 4 0 0 1 6 0m2 2 2-2a4 4 0 0 1 6 6l-5 5a4 4 0 0 1-6 0" transform="translate(1 1)"/></svg></button></div>
  </aside>
- <div class="map-key card" id="map-key"><span><i class="key research"></i>Research</span><span><i class="key well"></i>Wells</span><span><i class="key bore"></i>VMS</span><span><i class="key boundary"></i>Boundary</span></div>
+ <div class="map-key card" id="map-key"><span><i class="key research"></i>Active research infrastructure</span><span><i class="key proposed"></i>Proposed research infrastructure</span><span><i class="key well"></i>Wells</span><span><i class="key bore"></i>VMS</span><span><i class="key facility"></i>Site features</span><span><i class="key boundary"></i>Boundary</span></div>
  <div id="load-status" role="status" class="load-status">Loading map…</div>
  <div id="announce" class="sr-only" aria-live="polite"></div>
 </main>

@@ -44,3 +44,13 @@ All 14 NP well records are retained, including WP-01 and WP-14 at the same sourc
 The website publishes only the map fields used by the interface. Original source descriptions, gate codes, instrument serials, costs, and administrative documents are not included.
 
 Times New Roman is the preferred interface font, with system serif fallbacks. The page is responsive, supports keyboard navigation, and respects reduced-motion preferences.
+
+## Branding and site features
+
+The header uses the unmodified official RGB_formal_Jackson.png supplied by the Jackson School of Geosciences Office of Communications at https://utexas.box.com/v/jackson-school-logos (Digital JPEG and PNG / RGB folder). The mountain symbol is no longer used.
+
+Active research infrastructure and proposed research infrastructure have separate layer controls and symbols. A record is proposed when its status or name identifies it as proposed; proposed records are excluded from the active research layer. The supplied inventory identifies R08 as the proposed weir. Contact assignments are unchanged.
+
+Labeled site features are visible by default, including Lake Dianne and all other mapped facilities and landmarks. Labels appear as space and zoom permit; all feature names remain available by clicking, hovering, or searching. Label placement avoids overlaps and map controls.
+
+A search of the public Texas imagery catalog on October 30, 2026 identified the 2018 CapArea & McLennan collection with 6-inch (0.1524 m) imagery across Hays County, CC0-1.0. The public catalog download server returned a CloudFront 403 error, and the original download host was unavailable. No replacement image could be retrieved and verified. Existing 2022 NAIP and supplied Google imagery are retained. Catalog: https://data.geographic.texas.gov/collection/22493b55-6c57-4840-aa86-d59c54b00880 .
