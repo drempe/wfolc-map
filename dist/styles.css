@@ -7,3 +7,5 @@
 .key.proposed{background:#fffefa;border:2px solid var(--research);box-shadow:none;border-radius:0;transform:rotate(45deg)}
 .feature-label{background:transparent;border:0;box-shadow:none;color:#fff;font:18px var(--font);padding:0;text-shadow:-1px -1px 2px #17251d,1px -1px 2px #17251d,-1px 1px 2px #17251d,1px 1px 2px #17251d,0 1px 5px #17251d;white-space:nowrap}.feature-label:before{display:none}.feature-label.water-label{font-style:italic;font-size:21px}.terrain-map .feature-label{color:#333f48;text-shadow:-1px -1px 2px #fff,1px -1px 2px #fff,-1px 1px 2px #fff,1px 1px 2px #fff}.asset-glyph.proposed{border-color:var(--research)}
 @media(max-width:420px){.topbar{padding-inline:14px}.identity h1{font-size:19px}.map-key{gap:9px 14px}.map-key>span{font-size:16px}.source-key{font-size:16px}}
+
+.data-link{display:flex;margin-top:18px;text-decoration:none;font-size:17px;white-space:normal;text-align:center}

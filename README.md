@@ -54,3 +54,7 @@ Active research infrastructure and proposed research infrastructure have separat
 Labeled site features are visible by default, including Lake Dianne and all other mapped facilities and landmarks. Labels appear as space and zoom permit; all feature names remain available by clicking, hovering, or searching. Label placement avoids overlaps and map controls.
 
 A search of the public Texas imagery catalog on October 30, 2026 identified the 2018 CapArea & McLennan collection with 6-inch (0.1524 m) imagery across Hays County, CC0-1.0. The public catalog download server returned a CloudFront 403 error, and the original download host was unavailable. No replacement image could be retrieved and verified. Existing 2022 NAIP and supplied Google imagery are retained. Catalog: https://data.geographic.texas.gov/collection/22493b55-6c57-4840-aa86-d59c54b00880 .
+
+## Equipment data links
+
+`assetLinks` in `dist/data/contacts.json` stores optional public data links by asset ID. R04 (Meadow Weather Station) links to the LI-COR dashboard supplied by Daniella Rempe, preserving its live one-month filter. The link opens in a new tab from the equipment detail card.

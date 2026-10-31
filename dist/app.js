@@ -10,7 +10,7 @@
   const response = await fetch('data/map-data.json');
   if (!response.ok) throw new Error('Map data could not be loaded.');
   const data = await response.json();
-  const contactResponse=await fetch('data/contacts.json');
+  const contactResponse=await fetch('data/contacts.json?v=20261031-weather-data');
   if(!contactResponse.ok)throw new Error('Contact directory could not be loaded.');
   const registry=await contactResponse.json();data.contacts=registry.directory;
   const collections = data.features;
@@ -74,6 +74,9 @@
    $('contact-name').textContent=p.contact||'Not yet listed';
    const contact=data.contacts[p.contact];const email=$('contact-email');email.hidden=!contact?.email;
    if(contact?.email){email.textContent=contact.email;email.href=`mailto:${contact.email}?subject=${encodeURIComponent('WFOLC: '+p.name)}`;}else{email.removeAttribute('href');email.textContent='';}
+   const assetLink=registry.assetLinks?.[p.id], dataLink=$('equipment-data-link');
+   dataLink.hidden=!assetLink;
+   if(assetLink){dataLink.textContent=assetLink.label;dataLink.href=assetLink.url;}else{dataLink.textContent='';dataLink.removeAttribute('href');}
    const specs=$('equipment-specs');specs.replaceChildren();
    if(p.sensor_type)addSpec('Instrument',p.sensor_type);
    if(p.depth_m!=null)addSpec('Vertical depth',`${Number(p.depth_m.toFixed(2))} m`);

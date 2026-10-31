@@ -9,10 +9,10 @@
 <link rel="icon" href="assets/jackson-school.png" type="image/png">
 <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
 <link rel="stylesheet" href="vendor/leaflet/MarkerCluster.css">
-<link rel="stylesheet" href="styles.css?v=20261030-arial">
+<link rel="stylesheet" href="styles.css?v=20261031-weather-data">
 <script src="vendor/leaflet/leaflet.js" defer></script>
 <script src="vendor/leaflet/leaflet.markercluster.js" defer></script>
-<script src="app.js?v=20261030-arial" defer></script>
+<script src="app.js?v=20261031-weather-data" defer></script>
 </head>
 <body>
 <header class="topbar">
@@ -47,6 +47,7 @@
   <h2 id="equipment-title"></h2>
   <span class="status-tag" id="equipment-status" hidden></span>
   <div class="contact-section" id="contact-section"><p id="contact-role" class="field-label">Contact / project lead</p><p id="contact-name" class="contact-name"></p><a id="contact-email" class="contact-email"></a></div>
+  <a id="equipment-data-link" class="button data-link" target="_blank" rel="noopener noreferrer" hidden></a>
   <dl id="equipment-specs" hidden></dl>
   <div class="equipment-actions"><button type="button" id="zoom-equipment" class="button">Zoom to equipment</button><button type="button" id="copy-link" class="icon-button" aria-label="Copy link to this equipment" title="Copy equipment link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 13 4-4m-6 6-2 2a4 4 0 0 1-6-6l5-5a4 4 0 0 1 6 0m2 2 2-2a4 4 0 0 1 6 6l-5 5a4 4 0 0 1-6 0" transform="translate(1 1)"/></svg></button></div>
  </aside>

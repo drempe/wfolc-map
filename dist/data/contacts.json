@@ -48,5 +48,11 @@
     "vms_ftdt_sensors": "Daniella Rempe",
     "vms_vsp_samplers": "Daniella Rempe",
     "vms_fracture_samplers": "Daniella Rempe"
+  },
+  "assetLinks": {
+    "R04": {
+      "label": "View weather station data",
+      "url": "https://www.licor.cloud/dashboards/3ebfc99d-143a-41ec-a9be-151fd71c049b/true?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22months%22,%22value%22:1,%22live%22:true}}"
+    }
   }
 }
