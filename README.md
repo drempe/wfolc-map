@@ -58,3 +58,9 @@ A search of the public Texas imagery catalog on October 30, 2026 identified the 
 ## Equipment data links
 
 `assetLinks` in `dist/data/contacts.json` stores optional public data links by asset ID. R04 (Meadow Weather Station) links to the LI-COR dashboard supplied by Daniella Rempe, preserving its live one-month filter. The link opens in a new tab from the equipment detail card.
+
+## Added site infrastructure
+
+`dist/data/site-additions.geojson` contains later additions to the original map layers. Features use the same IDs, layer names, and contact registry as the base map.
+
+Deep Well (PROPERTY_FEATURES_0024) was added at Daniella Rempe’s direction, approximately 0.75 m east of the existing Electric Pole, Breaker Panel, Pump House point (PROPERTY_FEATURES_0007). This placement is derived from the described relative location, not a surveyed well coordinate. Its contact is Marcus Gary. Its equipment card links to the supplied YouTube video at 22 seconds. The close detail zoom keeps this well distinguishable from the adjacent pump-house feature.

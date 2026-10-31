@@ -10,10 +10,14 @@
   const response = await fetch('data/map-data.json');
   if (!response.ok) throw new Error('Map data could not be loaded.');
   const data = await response.json();
-  const contactResponse=await fetch('data/contacts.json?v=20261031-weather-data');
+  const contactResponse=await fetch('data/contacts.json?v=20261031-deep-well');
   if(!contactResponse.ok)throw new Error('Contact directory could not be loaded.');
   const registry=await contactResponse.json();data.contacts=registry.directory;
+  const additionsResponse=await fetch('data/site-additions.geojson?v=20261031-deep-well');
+  if(!additionsResponse.ok)throw new Error('Additional site features could not be loaded.');
+  const additions=await additionsResponse.json();
   const collections = data.features;
+  for(const feature of additions.features){const collection=collections[feature.properties.layer];if(collection && !collection.features.some(existing=>existing.properties.id===feature.properties.id))collection.features.push(feature);}
   for(const [name,collection] of Object.entries(collections))for(const feature of collection.features){const p=feature.properties;p.contact=registry.assignments[p.id] || registry.layerContacts[name] || p.contact;}
   const allFeatures = [];
   const featuresById = new Map();
@@ -93,7 +97,7 @@
    if(!f)return;
    const p=f.properties;const cat=category(f);
    if(cat in state.layers && !state.layers[cat]){state.layers[cat]=true;const input=document.querySelector(`[data-layer="${cat}"]`);if(input)input.checked=true;updateLayers();}
-   const zoom=p.name==='Lake Dianne'?18.5:p.layer.startsWith('vms_')||p.layer==='np_wells'?22.5:20;
+   const zoom=p.detail_zoom ?? (p.name==='Lake Dianne'?18.5:p.layer.startsWith('vms_')||p.layer==='np_wells'?22.5:20);
    const target=center(f);
    // Keep the selected marker above the contact card on compact screens.
    map.stop();map.setView(target,zoom,{animate:!reduced});

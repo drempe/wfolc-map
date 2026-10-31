@@ -39,7 +39,8 @@
     "R11": "Ashley Matheny",
     "R12": "Ashley Matheny",
     "R13": "Ashley Matheny",
-    "R09": "Tim Keitt"
+    "R09": "Tim Keitt",
+    "PROPERTY_FEATURES_0024": "Marcus Gary"
   },
   "layerContacts": {
     "np_wells": "Daniella Rempe",
@@ -53,6 +54,10 @@
     "R04": {
       "label": "View weather station data",
       "url": "https://www.licor.cloud/dashboards/3ebfc99d-143a-41ec-a9be-151fd71c049b/true?filters={%22davra-timeselector%22:{%22type%22:%22relative%22,%22unit%22:%22months%22,%22value%22:1,%22live%22:true}}"
+    },
+    "PROPERTY_FEATURES_0024": {
+      "label": "Watch deep well video",
+      "url": "https://www.youtube.com/watch?v=peBDG2fwyOQ&t=22s"
     }
   }
 }

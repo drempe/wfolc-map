@@ -1,0 +1,26 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "PROPERTY_FEATURES_0024",
+        "name": "Deep Well",
+        "layer": "property_features",
+        "contact": "Marcus Gary",
+        "role": "Contact",
+        "ref": null,
+        "status": null,
+        "detail_zoom": 22.5,
+        "location_source": "Daniella Rempe: immediately east, within 1 m of Electric Pole, Breaker Panel, Pump House; placed approximately 0.75 m east of its mapped point."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -98.118924617,
+          30.1314859
+        ]
+      }
+    }
+  ]
+}
