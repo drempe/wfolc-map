@@ -1,0 +1,65 @@
+{
+  "dataset": "Hays & Williamson Counties Lidar",
+  "collection_id": "91943379-ef06-490e-ac08-66bc98fa1ce8",
+  "acquired": "2024-01-10/2024-01-29",
+  "published": "2024-09-10",
+  "product": "Hydro-flattened bare-earth digital elevation model derived from lidar",
+  "native_cell_size_m": 1,
+  "horizontal_crs": "NAD83(2011) / UTM zone 14N (EPSG:6343)",
+  "vertical_reference": "NAVD88, Geoid18, metres",
+  "property_buffer_m": 100,
+  "license": "CC0-1.0",
+  "catalog_url": "https://api.tnris.org/api/v1/collections/91943379-ef06-490e-ac08-66bc98fa1ce8",
+  "qa_report_url": "https://gisweb.wilco.org/drop/LidarandContour2024Project/Docmentation/580-24-SOW-0004_Final_Report_20240830.pdf",
+  "source_tiles": [
+    "stratmap24-1m_3098554d2.tif",
+    "stratmap24-1m_3098554d4.tif",
+    "stratmap24-1m_3098563c1.tif",
+    "stratmap24-1m_3098563c3.tif"
+  ],
+  "archives": [
+    {
+      "qquad": "3098563",
+      "url": "https://s3.amazonaws.com/data.tnris.org/91943379-ef06-490e-ac08-66bc98fa1ce8/resources/stratmap24-50cm-hays-williamson-counties_3098563_dem.zip",
+      "filesize": 191926689,
+      "catalog_resource": {
+        "resource_id": "b13c0f25-242d-41a3-95b1-5df87faeb9b5",
+        "resource": "https://data.geographic.texas.gov/91943379-ef06-490e-ac08-66bc98fa1ce8/resources/stratmap24-50cm-hays-williamson-counties_3098563_dem.zip",
+        "filesize": 191926689,
+        "area_type_id": "af77712b-f6db-45b5-8458-e112d8a94e5e",
+        "area_type_name": "Dripping Springs|SW",
+        "collection_id": "91943379-ef06-490e-ac08-66bc98fa1ce8",
+        "resource_type_name": "Digital Elevation Model",
+        "resource_type_abbreviation": "DEM",
+        "area_type": "qquad"
+      }
+    },
+    {
+      "qquad": "3098554",
+      "url": "https://s3.amazonaws.com/data.tnris.org/91943379-ef06-490e-ac08-66bc98fa1ce8/resources/stratmap24-50cm-hays-williamson-counties_3098554_dem.zip",
+      "filesize": 196262444,
+      "catalog_resource": {
+        "resource_id": "570d4c6c-c4b5-4f1c-959e-77e755f14159",
+        "resource": "https://data.geographic.texas.gov/91943379-ef06-490e-ac08-66bc98fa1ce8/resources/stratmap24-50cm-hays-williamson-counties_3098554_dem.zip",
+        "filesize": 196262444,
+        "area_type_id": "e33f55ec-984e-447f-834b-ad5535eb1649",
+        "area_type_name": "Henly|SE",
+        "collection_id": "91943379-ef06-490e-ac08-66bc98fa1ce8",
+        "resource_type_name": "Digital Elevation Model",
+        "resource_type_abbreviation": "DEM",
+        "area_type": "qquad"
+      }
+    }
+  ],
+  "processing": {
+    "contour_interval_m": 1,
+    "index_interval_m": 5,
+    "contour_simplification_m": 0.25,
+    "minimum_contour_length_m": 3,
+    "web_coordinate_decimals": 6,
+    "hillshade": "multidirectional",
+    "web_image_crs": "EPSG:3857",
+    "vertical_shift_applied": false
+  },
+  "retrieved": "2026-11-02"
+}

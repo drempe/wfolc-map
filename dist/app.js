@@ -7,9 +7,12 @@
  L.control.zoom({position:'bottomright'}).addTo(map);
  const load = $('load-status');
  try {
-  const response = await fetch('data/map-data.json');
+  const response = await fetch('data/map-data.json?v=20261102-lidar2024');
   if (!response.ok) throw new Error('Map data could not be loaded.');
   const data = await response.json();
+  const contourResponse=await fetch('data/lidar-contours-2024.geojson');
+  if(!contourResponse.ok)throw new Error('Lidar topography could not be loaded.');
+  data.features.contours_1m=await contourResponse.json();
   const contactResponse=await fetch('data/contacts.json?v=20261031-deep-well');
   if(!contactResponse.ok)throw new Error('Contact directory could not be loaded.');
   const registry=await contactResponse.json();data.contacts=registry.directory;

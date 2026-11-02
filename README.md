@@ -32,12 +32,14 @@ Public university contact pages are retained as `source` links in the directory.
 
 ## Map files
 
-- `dist/data/map-data.json`: equipment geometry, boundaries, routes, facilities, contours, and imagery extents.
+- `dist/data/map-data.json`: equipment geometry, boundaries, routes, facilities, and imagery extents.
+- `dist/data/lidar-contours-2024.geojson`: 1 m contours with a 5 m index, derived from the 2024 ground model.
+- `dist/data/topography-source.json`: lidar source, licence, dates, coordinate systems, download links, and processing details.
 - `dist/assets`: bundled aerial, southern detail, terrain, and broader overview images.
 - `dist/vendor/leaflet`: Leaflet 1.9.4 and Leaflet.markercluster 1.5.3, with original licenses.
 - `dist/app.js` and `dist/styles.css`: map behavior and presentation.
 
-Imagery and vectors are derived from the supplied WFOLC GIS package. NAIP aerial imagery was acquired on June 8, 2022; the broader overview is resampled for web display. Southern Google imagery comes from the supplied 0.30 m pixel clip; its acquisition date was not provided. Terrain is derived from USGS 3DEP and contours from White_contours_bh.kmz. Images are reprojected to Web Mercator for alignment in the browser. The 1 m contours retain a 5 m index.
+Imagery and vectors are derived from the supplied WFOLC GIS package. NAIP aerial imagery was acquired on June 8, 2022; the broader overview is resampled for web display. Southern Google imagery comes from the supplied 0.30 m pixel clip; its acquisition date was not provided. Terrain and contours use the January 2024 TxGIO Hays & Williamson Counties lidar-derived bare-earth elevation model (1 m cells), clipped to the property plus a 100 m buffer. The earlier USGS 3DEP terrain and supplied contours have been replaced on the interactive map. Images are reprojected to Web Mercator for alignment in the browser. The 1 m contours retain a 5 m index.
 
 All 14 NP well records are retained, including WP-01 and WP-14 at the same source coordinate. Clustering allows overlapping markers to be separated at maximum zoom; equipment search also selects either record directly. VMS geometry represents the plan-view projection of inclined subsurface equipment; vertical depths are retained in the equipment cards.
 
@@ -64,3 +66,17 @@ A search of the public Texas imagery catalog on October 30, 2026 identified the 
 `dist/data/site-additions.geojson` contains later additions to the original map layers. Features use the same IDs, layer names, and contact registry as the base map.
 
 Deep Well (PROPERTY_FEATURES_0024) was added at Daniella Rempe’s direction, approximately 0.75 m east of the existing Electric Pole, Breaker Panel, Pump House point (PROPERTY_FEATURES_0007). This placement is derived from the described relative location, not a surveyed well coordinate. Its contact is Marcus Gary. Its equipment card links to the supplied YouTube video at 22 seconds. The close detail zoom keeps this well distinguishable from the adjacent pump-house feature.
+
+## Lidar topography
+
+The terrain background and contour lines come from the same 2024 ground-elevation model, acquired January 10–29, 2024 for the TxGIO Hays & Williamson Counties lidar project. Fugro collected and processed the data; AECOM provided independent quality assurance. The publicly released DEM has 1 m cells in NAD83(2011) / UTM zone 14N, with NAVD88 (Geoid18) elevations in metres. The collection has a CC0-1.0 licence. The collection’s 50 cm nominal lidar point spacing is distinct from the 1 m DEM grid actually used here.
+
+Coverage follows the union of the two supplied property parcels buffered by 100 m. All requested ground cells have valid source elevation. The four original source tiles are stratmap24-1m_3098563c1, 3098563c3, 3098554d2, and 3098554d4. Each tile and its original metadata were downloaded from the public Texas S3 archive and checked using the ZIP member CRC.
+
+The background is multidirectional hillshade with a restrained elevation tint. It is reprojected to Web Mercator for the browser, preserving approximately 1 m ground pixel spacing and transparency outside the buffered property. Contours use a 1 m vertical interval and 5 m index; a 0.25 m horizontal simplification and 3 m minimum line length reduce insignificant raster contour fragments. Web coordinates are rounded to six decimal places. No vertical datum shift is applied.
+
+Source catalog: https://api.tnris.org/api/v1/collections/91943379-ef06-490e-ac08-66bc98fa1ce8
+
+QA/QC report: https://gisweb.wilco.org/drop/LidarandContour2024Project/Docmentation/580-24-SOW-0004_Final_Report_20240830.pdf
+
+Archive URLs and exact processing parameters are retained in dist/data/topography-source.json. All equipment locations, contact assignments, and data/video links are preserved.
