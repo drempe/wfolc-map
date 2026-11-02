@@ -80,3 +80,9 @@ Source catalog: https://api.tnris.org/api/v1/collections/91943379-ef06-490e-ac08
 QA/QC report: https://gisweb.wilco.org/drop/LidarandContour2024Project/Docmentation/580-24-SOW-0004_Final_Report_20240830.pdf
 
 Archive URLs and exact processing parameters are retained in dist/data/topography-source.json. All equipment locations, contact assignments, and data/video links are preserved.
+
+## Restricted access area
+
+`dist/data/restricted-access.geojson` stores the hilltop restricted access zone. The red outline and diagonal hatching are visible by default on both map backgrounds, with a matching legend symbol and layer control. Clicking the area, or focusing it and pressing Enter or Space, displays “Restricted access”, “Authorized access only”, and “Sensitive infrastructure. Do not walk or disturb.” Equipment markers remain above the area and retain their individual details.
+
+The zone follows the red rectangle in Daniella Rempe’s annotated map supplied November 2, 2026. Six identifiable installation points were used to register the north-up screenshot to Web Mercator (maximum registration residual approximately 1.2 pixels). The resulting approximate management boundary is about 99 m east–west by 154 m north–south; it is not a surveyed boundary. Geometry provenance is retained in the GeoJSON properties.

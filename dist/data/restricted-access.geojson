@@ -1,0 +1,43 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "RESTRICTED_HILLTOP_01",
+        "name": "Restricted access",
+        "access": "Authorized access only",
+        "notice": "Sensitive infrastructure. Do not walk or disturb.",
+        "source": "Boundary traced from the red rectangle in Daniella Rempe’s annotated hilltop map, provided November 2, 2026.",
+        "location_method": "North-up Web Mercator registration to six mapped installation points; approximate management boundary, not a survey."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -98.1190964,
+              30.13104387
+            ],
+            [
+              -98.1180731,
+              30.13104387
+            ],
+            [
+              -98.1180731,
+              30.13243157
+            ],
+            [
+              -98.1190964,
+              30.13243157
+            ],
+            [
+              -98.1190964,
+              30.13104387
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 'use strict';
 (async () => {
  const $ = id => document.getElementById(id);
- const state = { basemap:'aerial', selected:null, layers:{research:true,proposed:true,wells:true,vms:true,sensors:false,facilities:true,contours:true,access:true} };
+ const state = { basemap:'aerial', selected:null, layers:{research:true,proposed:true,wells:true,vms:true,sensors:false,facilities:true,contours:true,access:true,restricted:true} };
  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
  const map = L.map('map',{attributionControl:false,zoomControl:false,minZoom:14,maxZoom:24,zoomSnap:.25,zoomDelta:1,preferCanvas:true,maxBoundsViscosity:.9});
  L.control.zoom({position:'bottomright'}).addTo(map);
@@ -19,6 +19,9 @@
   const additionsResponse=await fetch('data/site-additions.geojson?v=20261031-deep-well');
   if(!additionsResponse.ok)throw new Error('Additional site features could not be loaded.');
   const additions=await additionsResponse.json();
+  const restrictedResponse=await fetch('data/restricted-access.geojson?v=20261102-restricted');
+  if(!restrictedResponse.ok)throw new Error('Restricted access area could not be loaded.');
+  const restrictedAreas=await restrictedResponse.json();
   const collections = data.features;
   for(const feature of additions.features){const collection=collections[feature.properties.layer];if(collection && !collection.features.some(existing=>existing.properties.id===feature.properties.id))collection.features.push(feature);}
   for(const [name,collection] of Object.entries(collections))for(const feature of collection.features){const p=feature.properties;p.contact=registry.assignments[p.id] || registry.layerContacts[name] || p.contact;}
@@ -28,10 +31,16 @@
   const imageGroup = L.layerGroup().addTo(map);
   const accessGroup = L.layerGroup().addTo(map);
   const contourGroup = L.layerGroup().addTo(map);
+  const restrictedGroup = L.layerGroup().addTo(map);
+  map.createPane('restrictedZone');map.getPane('restrictedZone').style.zIndex=430;
+  const restrictedRenderer=L.svg({pane:'restrictedZone'});
   const vmsLineGroup = L.layerGroup().addTo(map);
   const selectionGroup = L.layerGroup().addTo(map);
   const featureGroup = L.layerGroup().addTo(map);
   map.createPane('siteBoundary'); map.getPane('siteBoundary').style.zIndex = 445;
+  map.getPane('siteBoundary').style.pointerEvents='none';
+  map.createPane('equipmentLines');map.getPane('equipmentLines').style.zIndex=450;
+  const equipmentLineRenderer=L.svg({pane:'equipmentLines'});
   const clusters = L.markerClusterGroup({maxClusterRadius:33,showCoverageOnHover:false,spiderfyOnMaxZoom:true,zoomToBoundsOnClick:true,animate:!reduced,spiderfyDistanceMultiplier:1.6,iconCreateFunction: cluster => L.divIcon({html:`<span class="sr-only">Explore ${cluster.getChildCount()} installations</span><span class="cluster-count" aria-hidden="true">${cluster.getChildCount()}</span>`,className:'marker-cluster',iconSize:[40,40]}),polygonOptions:{weight:1,fillOpacity:.05}}).addTo(map);
   function announce(message){$('announce').textContent=message;}
   function isProposed(f){return /proposed/i.test(f.properties.status||'') || /proposed/i.test(f.properties.name);}
@@ -61,13 +70,15 @@
    updateFeatureLabels();
    state.layers.contours ? map.addLayer(contourGroup) : map.removeLayer(contourGroup);
    state.layers.access ? map.addLayer(accessGroup) : map.removeLayer(accessGroup);
+   state.layers.restricted ? map.addLayer(restrictedGroup) : map.removeLayer(restrictedGroup);
    vmsLineGroup.clearLayers();
-   if(state.layers.vms && map.getZoom()>=19) L.geoJSON(collections.vms_sleeves,{style:{color:'#744884',weight:3,opacity:.95},onEachFeature:bindLine}).addTo(vmsLineGroup);
-   if(state.layers.sensors && map.getZoom()>=19) L.geoJSON(collections.vms_fracture_samplers,{style:{color:'#33869b',weight:6,opacity:.95},onEachFeature:bindLine}).addTo(vmsLineGroup);
+   if(state.layers.vms && map.getZoom()>=19) L.geoJSON(collections.vms_sleeves,{renderer:equipmentLineRenderer,pane:'equipmentLines',style:{color:'#744884',weight:3,opacity:.95},onEachFeature:bindLine}).addTo(vmsLineGroup);
+   if(state.layers.sensors && map.getZoom()>=19) L.geoJSON(collections.vms_fracture_samplers,{renderer:equipmentLineRenderer,pane:'equipmentLines',style:{color:'#33869b',weight:6,opacity:.95},onEachFeature:bindLine}).addTo(vmsLineGroup);
   }
   function bindLine(f,layer){layer.bindTooltip(f.properties.name);layer.on('click',e=>{if(e.originalEvent)L.DomEvent.stopPropagation(e.originalEvent);selectFeature(f);});}
   function addSpec(label,value){const dt=document.createElement('dt');const dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;$('equipment-specs').append(dt,dd);}
   function selectFeature(f,{focus=false}={}){
+   map.closePopup();
    const old=state.selected && markers.get(state.selected.properties.id);old?.getElement()?.classList.remove('selected');
    state.selected=f;const p=f.properties;closeLayers();$('search-results').hidden=true;
    $('equipment-title').textContent=p.name.replace(/^R\d\d\s+/,'');
@@ -149,19 +160,52 @@
    }
   }
   for(const name of ['vms_sleeves','vms_fracture_samplers'])for(const f of collections[name].features){allFeatures.push(f);featuresById.set(f.properties.id,f);}
+  L.geoJSON(restrictedAreas,{
+   renderer:restrictedRenderer,pane:'restrictedZone',bubblingMouseEvents:false,
+   style:{color:'#c62828',weight:2.5,opacity:1,fillColor:'url(#restricted-hatch)',fillOpacity:1},
+   onEachFeature:(f,layer)=>{
+    const p=f.properties,content=document.createElement('div');content.className='restriction-notice';
+    const title=document.createElement('h2');title.textContent=p.name;
+    const access=document.createElement('p');access.className='restriction-access';access.textContent=p.access;
+    const notice=document.createElement('p');notice.textContent=p.notice;
+    content.append(title,access,notice);
+    layer.bindPopup(content,{className:'restriction-popup',maxWidth:290,minWidth:220,autoPanPadding:[25,25]});
+    layer.bindTooltip(p.name+' · '+p.access,{sticky:true});
+    layer.on('popupopen',()=>layer.closeTooltip());
+    layer.on('tooltipopen',()=>{if(layer.isPopupOpen())layer.closeTooltip();});
+    layer.on('click',()=>{closeEquipment();closeLayers();$('search-results').hidden=true;announce(p.name+'. '+p.access+'. '+p.notice);});
+    layer.on('add',()=>{
+     const path=layer.getElement();path.setAttribute('tabindex','0');path.setAttribute('role','button');
+     path.setAttribute('aria-label',p.name+'. '+p.access+'. '+p.notice);
+    });
+   }
+  }).addTo(restrictedGroup);
   L.geoJSON(collections.site_boundaries,{pane:'siteBoundary',interactive:false,style:{color:'#e4bf62',weight:2.5,fill:false,opacity:.95}}).addTo(map);
   for(const name of ['ranch_roads','public_road','trails','fences','waterways']){
    L.geoJSON(collections[name],{interactive:false,style:{color:name==='waterways'?'#5fb0d0':name==='public_road'?'#e3e3d9':name==='fences'?'#bac0ac':'#d8a27b',weight:name==='fences'?1:name==='waterways'?2.3:2.2,opacity:.9,dashArray:name==='trails'||name==='fences'?'5 5':null}}).addTo(accessGroup);
   }
   L.geoJSON(collections.contours_1m,{interactive:false,style:f=>({color:f.properties.index?'#f7dd91':'#fff4d4',weight:f.properties.index?1.1:.5,opacity:.75})}).addTo(contourGroup);
   showImages();fit('site');
+  const restrictedSvg=map.getPane('restrictedZone').querySelector('svg');
+  const svgNS='http://www.w3.org/2000/svg',defs=document.createElementNS(svgNS,'defs'),pattern=document.createElementNS(svgNS,'pattern');
+  pattern.id='restricted-hatch';pattern.setAttribute('patternUnits','userSpaceOnUse');pattern.setAttribute('width','12');pattern.setAttribute('height','12');pattern.setAttribute('patternTransform','rotate(45)');
+  const tint=document.createElementNS(svgNS,'rect');tint.setAttribute('width','12');tint.setAttribute('height','12');tint.setAttribute('fill','#c62828');tint.setAttribute('fill-opacity','.07');
+  const stripe=document.createElementNS(svgNS,'path');stripe.setAttribute('d','M 0 0 V 12');stripe.setAttribute('stroke','#c62828');stripe.setAttribute('stroke-width','2');stripe.setAttribute('stroke-opacity','.62');
+  pattern.append(tint,stripe);defs.append(pattern);restrictedSvg.prepend(defs);
+  restrictedSvg.addEventListener('keydown',event=>{
+   if(event.key==='Escape'){map.closePopup();return;}
+   if((event.key==='Enter'||event.key===' ')&&event.target.matches('path[role="button"]')){
+    event.preventDefault();restrictedGroup.eachLayer(group=>group.eachLayer(layer=>{if(layer.getElement()===event.target){closeEquipment();closeLayers();layer.openPopup();}}));
+   }
+  });
+
   if(data.overview)map.setMaxBounds(data.overview.bounds);
   updateLayers();
   map.on('zoomend',()=>{
    updateFeatureLabels();
    vmsLineGroup.clearLayers();
-   if(state.layers.vms && map.getZoom()>=19)L.geoJSON(collections.vms_sleeves,{style:{color:'#744884',weight:3},onEachFeature:bindLine}).addTo(vmsLineGroup);
-   if(state.layers.sensors && map.getZoom()>=19)L.geoJSON(collections.vms_fracture_samplers,{style:{color:'#33869b',weight:6},onEachFeature:bindLine}).addTo(vmsLineGroup);
+   if(state.layers.vms && map.getZoom()>=19)L.geoJSON(collections.vms_sleeves,{renderer:equipmentLineRenderer,pane:'equipmentLines',style:{color:'#744884',weight:3},onEachFeature:bindLine}).addTo(vmsLineGroup);
+   if(state.layers.sensors && map.getZoom()>=19)L.geoJSON(collections.vms_fracture_samplers,{renderer:equipmentLineRenderer,pane:'equipmentLines',style:{color:'#33869b',weight:6},onEachFeature:bindLine}).addTo(vmsLineGroup);
   });
   map.on('moveend resize',updateFeatureLabels);
   map.on('click',()=>{closeEquipment();$('search-results').hidden=true;});

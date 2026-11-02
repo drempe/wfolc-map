@@ -9,10 +9,10 @@
 <link rel="icon" href="assets/jackson-school.png" type="image/png">
 <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
 <link rel="stylesheet" href="vendor/leaflet/MarkerCluster.css">
-<link rel="stylesheet" href="styles.css?v=20261102-lidar2024">
+<link rel="stylesheet" href="styles.css?v=20261102-restricted">
 <script src="vendor/leaflet/leaflet.js" defer></script>
 <script src="vendor/leaflet/leaflet.markercluster.js" defer></script>
-<script src="app.js?v=20261102-lidar2024" defer></script>
+<script src="app.js?v=20261102-restricted" defer></script>
 </head>
 <body>
 <header class="topbar">
@@ -33,6 +33,7 @@
  </div>
  <section id="layers-panel" class="card layers-panel" aria-label="Map layers" hidden>
   <div class="panel-heading"><h2>Map layers</h2><button class="icon-button" id="close-layers" type="button" aria-label="Close map layers">×</button></div>
+  <label><input type="checkbox" data-layer="restricted" checked><span class="key restricted"></span>Restricted access</label>
   <label><input type="checkbox" data-layer="research" checked><span class="key research"></span>Active research infrastructure</label>
   <label><input type="checkbox" data-layer="proposed" checked><span class="key proposed"></span>Proposed research infrastructure</label>
   <label><input type="checkbox" data-layer="wells" checked><span class="key well"></span>Wells</label>
@@ -51,7 +52,7 @@
   <dl id="equipment-specs" hidden></dl>
   <div class="equipment-actions"><button type="button" id="zoom-equipment" class="button">Zoom to equipment</button><button type="button" id="copy-link" class="icon-button" aria-label="Copy link to this equipment" title="Copy equipment link"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 13 4-4m-6 6-2 2a4 4 0 0 1-6-6l5-5a4 4 0 0 1 6 0m2 2 2-2a4 4 0 0 1 6 6l-5 5a4 4 0 0 1-6 0" transform="translate(1 1)"/></svg></button></div>
  </aside>
- <div class="map-key card" id="map-key"><span><i class="key research"></i>Active research infrastructure</span><span><i class="key proposed"></i>Proposed research infrastructure</span><span><i class="key well"></i>Wells</span><span><i class="key bore"></i>VMS</span><span><i class="key facility"></i>Site features</span><span><i class="key boundary"></i>Boundary</span></div>
+ <div class="map-key card" id="map-key"><span><i class="key research"></i>Active research infrastructure</span><span><i class="key proposed"></i>Proposed research infrastructure</span><span><i class="key well"></i>Wells</span><span><i class="key bore"></i>VMS</span><span><i class="key facility"></i>Site features</span><span><i class="key boundary"></i>Boundary</span><span><i class="key restricted"></i>Restricted access</span></div>
  <div id="load-status" role="status" class="load-status">Loading map…</div>
  <div id="announce" class="sr-only" aria-live="polite"></div>
 </main>
